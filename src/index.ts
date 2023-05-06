@@ -31,7 +31,7 @@ function getArrayFromConfig<T extends RecordEnv>({ module, path }: Pick<InjectPl
 /**
  *  Return all envs from path and module into same object
  */
-async function loadEnv<T extends RecordEnv>({ module, path }: Pick<InjectPluginConfig<T>, 'module' | 'path'>) {
+export async function loadEnvFile<T extends RecordEnv>({ module, path }: Pick<InjectPluginConfig<T>, 'module' | 'path'>) {
   const config = getArrayFromConfig({ module, path })
   const envObject: RecordEnv = Object.assign({}, ...await Promise.all(config.map(async (item) => {
     if (typeof item === 'string') {
@@ -79,7 +79,7 @@ function setInterfaceText<T extends RecordEnv>(env: ParsedEnv<T> | undefined) {
  *
  */
 export async function injectEnvPlugin<T extends RecordEnv>(pluginConfig: InjectPluginConfig<T>): Promise<Plugin> {
-  const env = await loadEnv(pluginConfig)
+  const env = await loadEnvFile(pluginConfig)
   return {
     name: 'vite-inject-env-plugin',
     config: () => ({

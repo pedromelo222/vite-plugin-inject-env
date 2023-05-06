@@ -18,7 +18,9 @@
     "build": "npm run clean  && tsup src/index.ts --dts --format cjs,esm && tsc -p tsconfig.client.json",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",

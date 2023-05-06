@@ -1,0 +1,64 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`core > should import envs from .env file 1`] = `
+{
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
+
+exports[`core > should import envs from JSON file 1`] = `
+{
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_API_SOCKET_URL": "\\"https://teste.com\\"",
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_API_URL": "\\"https://teste.com\\"",
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
+
+exports[`core > should import envs from MD file 1`] = `
+{
+  "import.meta.env.VITE_APP_MD_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_MD_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_MD_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
+
+exports[`core > should import envs from YML file 1`] = `
+{
+  "import.meta.env.VITE_APP_YML_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_YML_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_YML_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
+
+exports[`core > should import envs from a javascript object 1`] = `
+{
+  "import.meta.env.VITE_APP_JS_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_JS_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_JS_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
+
+exports[`core > should import multiple envs files and modules 1`] = `
+{
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_DOT_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_API_SOCKET_URL": "\\"https://teste.com\\"",
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_API_URL": "\\"https://teste.com\\"",
+  "import.meta.env.VITE_APP_JSON_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+  "import.meta.env.VITE_APP_JS_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_JS_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_JS_BASE_AUTH_API": "\\"https://test.com\\"",
+  "import.meta.env.VITE_APP_JS_TWO_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_JS_TWO_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_JS_TWO_BASE_AUTH_API": "\\"https://test.com\\"",
+  "import.meta.env.VITE_APP_MD_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_MD_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_MD_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+  "import.meta.env.VITE_APP_YML_ENV_BASE_API_SOCKET_URL": "\\"wss://test.api.com\\"",
+  "import.meta.env.VITE_APP_YML_ENV_BASE_API_URL": "\\"https://testapi.com\\"",
+  "import.meta.env.VITE_APP_YML_ENV_BASE_AUTH_API": "\\"https://test.com\\"",
+}
+`;
