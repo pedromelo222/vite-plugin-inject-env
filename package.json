@@ -1,0 +1,33 @@
+{
+  "name": "vite-plugin-inject-env",
+  "private": true,
+  "version": "0.0.14",
+  "description": "Vite plugin ...",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "tsconfig.json",
+    "tsconfig.client.json"
+  ],
+  "scripts": {
+    "clean": "rimraf dist && rimraf es",
+    "dev": " tsup src/index.ts --dts --format cjs,esm --watch",
+    "build": "npm run clean  && tsup src/index.ts --dts --format cjs,esm && tsc -p tsconfig.client.json",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.38.6",
+    "@types/node": "^18.16.1",
+    "eslint": "^8.40.0",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2",
+    "vitest": "^0.31.0"
+  }
+}

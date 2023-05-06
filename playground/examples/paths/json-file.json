@@ -1,0 +1,5 @@
+{
+    "JSON_ENV_BASE_API_URL": "https://teste.com",
+    "JSON_ENV_BASE_API_SOCKET_URL": "https://teste.com",
+    "JSON_ENV_BASE_AUTH_API": "https://test.com"
+  }
