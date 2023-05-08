@@ -18,21 +18,26 @@ export function parseEnv<T extends RecordEnv>(env: T): ParsedEnv<T> {
  * Returns array from single config or array config
  */
 function createArrayFromConfig<T>(config: T[] | T | undefined) {
-  return Array.isArray(config) ? [...config] : typeof config !== 'undefined' ? [config] : []
+  return Array.isArray(config) ? [...config] : (typeof config === 'string' || typeof config === 'object') ? [config] : []
 }
 
 /**
- * Returns one array of modules and paths
+ * Returns one array absolute paths and object
  */
-function getArrayFromConfig<T extends RecordEnv>({ module, path }: Pick<InjectPluginConfig<T>, 'module' | 'path'>) {
-  return [...createArrayFromConfig(module), ...createArrayFromConfig(path)]
+function getArrayFromConfig<T extends RecordEnv>(pluginConfig: InjectPluginConfig<T>) {
+  const path = (typeof pluginConfig === 'string' || Array.isArray(pluginConfig))
+    ? pluginConfig
+    : pluginConfig.path ? pluginConfig.path : pluginConfig
+
+  return [...createArrayFromConfig(path)]
 }
 
 /**
  *  Return all envs from path and module into same object
  */
-export async function loadEnvFile<T extends RecordEnv>({ module, path }: Pick<InjectPluginConfig<T>, 'module' | 'path'>) {
-  const config = getArrayFromConfig({ module, path })
+export async function loadEnvFile<T extends RecordEnv>(pluginConfig: InjectPluginConfig<T>) {
+  const config = getArrayFromConfig(pluginConfig)
+
   const envObject: RecordEnv = Object.assign({}, ...await Promise.all(config.map(async (item) => {
     if (typeof item === 'string') {
       const file = await getFile({ path: item })
@@ -51,7 +56,6 @@ export async function loadEnvFile<T extends RecordEnv>({ module, path }: Pick<In
 
 /**
  * Create or edit env.d.ts to add type
- *
  */
 async function replaceEnvTypeDefinition<T extends RecordEnv>(env: ParsedEnv<T> | undefined, filePath = './src/env.d.ts') {
   try {
@@ -73,26 +77,25 @@ function setInterfaceText<T extends RecordEnv>(env: ParsedEnv<T> | undefined) {
 }
 
 /**
- *
  * vite-plugin-inject-env
  * inject enviroment variables into vite from '.md' '.yml' '.json' and 'js object'
- *
  */
 export async function injectEnvPlugin<T extends RecordEnv>(pluginConfig: InjectPluginConfig<T>): Promise<Plugin> {
   const env = await loadEnvFile(pluginConfig)
+
   return {
     name: 'vite-inject-env-plugin',
     config: () => ({
       define: env,
     }),
     async configResolved() {
-      if (pluginConfig.typeDefinition !== false) {
-        try {
-          await replaceEnvTypeDefinition(env)
-        }
-        catch (error: any) {
-          throw new Error(`[TypeDefinition] - Error when creating types \n${error}`)
-        }
+      if (typeof pluginConfig !== 'string' && !Array.isArray(pluginConfig) && pluginConfig.typeDefinition === false)
+        return
+      try {
+        await replaceEnvTypeDefinition(env)
+      }
+      catch (error: any) {
+        throw new Error(`[TypeDefinition] - Error when creating types \n${error}`)
       }
     },
   }

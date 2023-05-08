@@ -13,7 +13,19 @@ export function transformStringToObject(text: string) {
   return textObject
 }
 
+/**
+ * Check for allowed files
+ * /.env || /.other || /file.js || file.mjs || file.md || file.json || file.yml
+ */
+function checkFileType(path: string) {
+  const regex = /.*(?:\/\.[^./\r\n]+|\.\/[^./\r\n]+)(?<!\.)$|.*\.(?:js|mjs|md|json|yml)$/gm
+  if (!regex.test(path))
+    throw new Error(`"${path.substring(path.lastIndexOf('/') + 1)}" is not a valid file type.`)
+}
+
 export async function getFile({ path, enconding = 'utf-8' }: { path: string; enconding?: BufferEncoding }) {
+  checkFileType(path)
+
   if ((path.includes('.js') || path.includes('.mjs')) && !path.includes('.json')) {
     const file = import(`${path}`)
     return file
@@ -28,17 +40,8 @@ export function findFileIndex(str: string, searchStr: string) {
 }
 
 // helper function to find closing brace index
-export function findClosingBraceIndex(str: string, start: number) {
-  let count = 1
-  for (let i = start + 1; i < str.length; i++) {
-    if (str[i] === '{')
-      count++
-    if (str[i] === '}')
-      count--
-    if (count === 0)
-      return i
-  }
-  return -1
+export function findClosingBraceIndex({ fileString, start }: { fileString: string; start: number }): number {
+  return Array.prototype.findIndex.call(fileString, (eachLetter, index) => (index >= start && eachLetter === '}'))
 }
 
 /**
@@ -54,7 +57,7 @@ export function replaceOrCreateNewCode(fileData: string, searchIndex: string, co
   if (openingBraceIndex === -1)
     throw new Error('Invalid interface definition')
 
-  const end = findClosingBraceIndex(fileData, openingBraceIndex)
+  const end = findClosingBraceIndex({ fileString: fileData, start: openingBraceIndex })
   return `${fileData.slice(0, openingBraceIndex + 1)}\n${`${code}}`}${fileData.slice(end + 1)}`
 }
 

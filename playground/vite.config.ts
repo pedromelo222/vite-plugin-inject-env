@@ -7,8 +7,8 @@ export default defineConfig(() => {
   return {
     plugins: [
       injectEnvPlugin({
-        module: env,
         path: [
+          env,
           './examples/paths/json-file.json',
           './examples/paths/md-file.md',
           './examples/paths/.env',
